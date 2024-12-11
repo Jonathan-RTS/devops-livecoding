@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
+          distribution: 'temurin' # Utilisation de la distribution OpenJDK Temurin
 
       # Étape 3 : Construire et tester l'application avec Maven
       - name: Build and test with Maven
