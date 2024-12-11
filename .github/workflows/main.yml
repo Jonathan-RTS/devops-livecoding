@@ -24,3 +24,21 @@ jobs:
       # Étape 3 : Construire et tester l'application avec Maven
       - name: Build and test with Maven
         run: mvn clean verify --file ./simple-api/pom.xml
+
+
+          build-and-push-docker-image:
+    needs: test-backend
+    runs-on: ubuntu-22.04
+    steps:
+      # Étape 1 : Récupère le code
+      - name: Checkout code
+        uses: actions/checkout@v2.5.0
+
+      # Étape 2 : Construction et publication de l'image Docker pour l'API
+      - name: Build and push backend image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./simple-api
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
+
