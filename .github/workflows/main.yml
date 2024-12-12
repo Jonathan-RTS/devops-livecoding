@@ -35,7 +35,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
 
-      # Étape 2 : Construction et publication de l'image Docker pour l'API
+      # Étape 2 : Connexion à DockerHub
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Étape 3 : Construction et publication de l'image Docker pour l'API
       - name: Build and push backend image
         uses: docker/build-push-action@v3
         with:
