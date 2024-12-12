@@ -23,14 +23,17 @@ jobs:
           java-version: 17
           distribution: 'temurin' # Utilisation de la distribution OpenJDK Temurin
 
-      # Étape 3 : Construire, tester et analyser avec SonarCloud
+      # Étape 3 : Naviguer dans le dossier simple-api
+      - name: Navigate to simple-api directory
+        run: cd simple-api
+
+      # Étape 4 : Construire, tester et analyser avec SonarCloud
       - name: Build, test, and analyze with SonarCloud
         run: mvn -B verify sonar:sonar \
           -Dsonar.projectKey=Jonathan-RTS_devops-livecoding \
           -Dsonar.organization=jonathan-rts \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          --file ./simple-api/pom.xml
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   build-and-push-docker-image:
     needs: test-backend
