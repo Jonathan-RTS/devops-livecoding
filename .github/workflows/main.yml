@@ -23,9 +23,14 @@ jobs:
           java-version: 17
           distribution: 'temurin' # Utilisation de la distribution OpenJDK Temurin
 
-      # Étape 3 : Construire et tester l'application avec Maven
-      - name: Build and test with Maven
-        run: mvn clean verify --file ./simple-api/pom.xml
+      # Étape 3 : Construire, tester et analyser avec SonarCloud
+      - name: Build, test, and analyze with SonarCloud
+        run: mvn -B verify sonar:sonar \
+          -Dsonar.projectKey=Jonathan-RTS_devops-livecoding \
+          -Dsonar.organization=jonathan-rts \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          --file ./simple-api/pom.xml
 
   build-and-push-docker-image:
     needs: test-backend
