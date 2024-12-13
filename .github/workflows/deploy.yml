@@ -10,21 +10,25 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      # 1. Récupère le code de votre dépôt
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # 2. Connexion à Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }} # Remplacez par le secret défini pour votre nom d'utilisateur Docker
+          password: ${{ secrets.DOCKER_PASSWORD }} # Remplacez par le secret défini pour votre mot de passe ou token Docker Hub
 
+      # 3. Configure Docker Buildx pour permettre le build multi-plateforme
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # 4. Build et pousse l'image Docker du backend
       - name: Build and push backend image
         uses: docker/build-push-action@v4
         with:
-          context: ./simple-api
-          push: true
-          tags: your-dockerhub-username/backend:latest
+          context: ./simple-api          # Chemin vers votre projet backend
+          push: true                     # Permet de pousser l'image vers Docker Hub
+          tags: your-dockerhub-username/backend:latest # Remplacez "your-dockerhub-username" par votre nom d'utilisateur Docker Hub
