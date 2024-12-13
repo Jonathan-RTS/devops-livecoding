@@ -18,8 +18,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ jonathanr93 }} # Remplacez par le secret défini pour votre nom d'utilisateur Docker
-          password: ${{ dckr_pat_4hQ7Cenq5UZcJJJdyYzBvebWppE }} # Remplacez par le secret défini pour votre mot de passe ou token Docker Hub
+          username: ${{ secrets.DOCKER_USERNAME }} # Utilisation correcte du secret
+          password: ${{ secrets.DOCKER_PASSWORD }} # Utilisation correcte du secret
 
       # 3. Configure Docker Buildx pour permettre le build multi-plateforme
       - name: Set up Docker Buildx
@@ -31,4 +31,4 @@ jobs:
         with:
           context: ./simple-api          # Chemin vers votre projet backend
           push: true                     # Permet de pousser l'image vers Docker Hub
-          tags: your-dockerhub-username/backend:latest # Remplacez "your-dockerhub-username" par votre nom d'utilisateur Docker Hub
+          tags: jonathanr93/backend:latest # Remplacez "jonathanr93" par votre nom d'utilisateur Docker Hub
