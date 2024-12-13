@@ -11,9 +11,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2.5.0
+
       - name: Build and push backend image
         uses: docker/build-push-action@v3
         with:
           context: ./simple-api
-          tags: ${{ secrets.jonathanr93 }}/tp-devops-simple-api:latest
-          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
+          push: true
